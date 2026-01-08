@@ -13,10 +13,10 @@
 
 ```bash
 # npm
-npm install @ai-ui
+npm install ai-ui
 
 # pnpm
-pnpm add @ai-ui
+pnpm add ai-ui
 ```
 
 ## 🔨 使用
