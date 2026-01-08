@@ -39,12 +39,15 @@ jobs:
         with:
           version: 9
 
-      # 4. 修复 pnpm-lock.yaml 中的内部镜像 tarball（r.npm.sankuai.com）
-      #    注意：lockfile 里出现的是镜像的 /download/ 路径，不能“换域名”直接变成 npm 官方可用 URL。
-      #    这里做法是：移除这些 tarball 字段，让 pnpm 使用 registry 重新解析生成正确的 tarball。
-      - name: Fix lockfile tarball urls
+      # 4. 处理 pnpm-lock.yaml 中的内部镜像（r.npm.sankuai.com）
+      #    该 URL 是镜像的 tarball 直链，pnpm 会直接请求它；仅设置 registry 无法覆盖。
+      #    最稳妥：CI 中检测到后删除 lockfile，让 pnpm 以官方 registry 重新解析生成 lock（不会回写到仓库）。
+      - name: Sanitize lockfile
         run: |
-          node -e "const fs=require('fs'); const p='pnpm-lock.yaml'; let s=fs.readFileSync(p,'utf8'); s=s.replace(/,\\s*tarball:\\s*https?:\\/\\/r\\.npm\\.sankuai\\.com[^}]+/g,''); s=s.replace(/^\\s*tarball:\\s*https?:\\/\\/r\\.npm\\.sankuai\\.com.*\\n/gm,''); fs.writeFileSync(p,s);"
+          if [ -f pnpm-lock.yaml ] && grep -q "r.npm.sankuai.com" pnpm-lock.yaml; then
+            echo "Found internal tarball urls in pnpm-lock.yaml; removing lockfile for CI install."
+            rm -f pnpm-lock.yaml
+          fi
 
       # 5. workflow_dispatch 时覆盖版本号（不提交回仓库，仅用于本次 publish）
       - name: Update version from input
