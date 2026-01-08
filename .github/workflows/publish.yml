@@ -1,6 +1,14 @@
 name: Publish to npm
 
 on:
+  # 手动触发（可选输入 version）
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g. 0.1.1). If set, will override package.json version for this run.'
+        required: false
+        type: string
+
   push:
     tags:
       - 'v*' # 只要推送到 GitHub 的 tag 是以 v 开头的（如 v0.1.0），就触发
@@ -31,27 +39,39 @@ jobs:
         with:
           version: 9
 
-      # 4. 安装依赖（强制使用官方 npm registry，重新解析依赖以覆盖 lockfile 中的内部镜像源）
+      # 4. 修复 pnpm-lock.yaml 中的内部镜像 tarball（r.npm.sankuai.com）
+      #    注意：lockfile 里出现的是镜像的 /download/ 路径，不能“换域名”直接变成 npm 官方可用 URL。
+      #    这里做法是：移除这些 tarball 字段，让 pnpm 使用 registry 重新解析生成正确的 tarball。
+      - name: Fix lockfile tarball urls
+        run: |
+          node -e "const fs=require('fs'); const p='pnpm-lock.yaml'; let s=fs.readFileSync(p,'utf8'); s=s.replace(/,\\s*tarball:\\s*https?:\\/\\/r\\.npm\\.sankuai\\.com[^}]+/g,''); s=s.replace(/^\\s*tarball:\\s*https?:\\/\\/r\\.npm\\.sankuai\\.com.*\\n/gm,''); fs.writeFileSync(p,s);"
+
+      # 5. workflow_dispatch 时覆盖版本号（不提交回仓库，仅用于本次 publish）
+      - name: Update version from input
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version != '' }}
+        run: |
+          node -e "const fs=require('fs'); const pkg=JSON.parse(fs.readFileSync('package.json','utf8')); pkg.version='${{ github.event.inputs.version }}'; fs.writeFileSync('package.json', JSON.stringify(pkg,null,2)+'\n');"
+
+      # 6. 安装依赖（强制使用官方 npm registry，并允许重写 lockfile 到官方 tarball）
       - name: Install Dependencies
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
           PNPM_CONFIG_REGISTRY: https://registry.npmjs.org/
         run: |
           pnpm config set registry https://registry.npmjs.org/
-          # 使用 --no-frozen-lockfile 重新解析依赖，避免使用 lockfile 中的内部镜像源
           pnpm install --no-frozen-lockfile
 
-      # 5. 代码检查 & 测试 (发布前必须保证代码是好的)
+      # 7. 代码检查 & 测试 (发布前必须保证代码是好的)
       - name: Lint & Test
         run: |
           pnpm lint
           pnpm test
 
-      # 6. 打包构建
+      # 8. 打包构建
       - name: Build
         run: pnpm build
 
-      # 7. 发布到 npm
+      # 9. 发布到 npm
       # 这一步会自动读取你的 package.json 里的版本号发布
       - name: Publish
         run: npm publish --access public
