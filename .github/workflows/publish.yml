@@ -31,9 +31,13 @@ jobs:
         with:
           version: 9
 
-      # 4. 安装依赖
+      # 4. 安装依赖（使用环境变量强制使用官方 npm registry）
       - name: Install Dependencies
-        run: pnpm install
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+        run: |
+          pnpm config set registry https://registry.npmjs.org/
+          pnpm install --frozen-lockfile
 
       # 5. 代码检查 & 测试 (发布前必须保证代码是好的)
       - name: Lint & Test
