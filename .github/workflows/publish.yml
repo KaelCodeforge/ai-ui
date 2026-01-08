@@ -1,0 +1,54 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*' # 只要推送到 GitHub 的 tag 是以 v 开头的（如 v0.1.0），就触发
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    # 权限设置（读取代码）
+    permissions:
+      contents: read
+
+    steps:
+      # 1. 把代码拉下来
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 安装 Node.js 环境
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      # 3. 安装 pnpm (因为你的项目用的是 pnpm)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 4. 安装依赖
+      - name: Install Dependencies
+        run: pnpm install
+
+      # 5. 代码检查 & 测试 (发布前必须保证代码是好的)
+      - name: Lint & Test
+        run: |
+          pnpm lint
+          pnpm test
+
+      # 6. 打包构建
+      - name: Build
+        run: pnpm build
+
+      # 7. 发布到 npm
+      # 这一步会自动读取你的 package.json 里的版本号发布
+      - name: Publish
+        run: npm publish --access public
+        env:
+          # 这里引用你在 GitHub 后台设置的 Secret
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
