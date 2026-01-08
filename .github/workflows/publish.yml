@@ -31,13 +31,15 @@ jobs:
         with:
           version: 9
 
-      # 4. 安装依赖（使用环境变量强制使用官方 npm registry）
+      # 4. 安装依赖（强制使用官方 npm registry，重新解析依赖以覆盖 lockfile 中的内部镜像源）
       - name: Install Dependencies
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+          PNPM_CONFIG_REGISTRY: https://registry.npmjs.org/
         run: |
           pnpm config set registry https://registry.npmjs.org/
-          pnpm install --frozen-lockfile
+          # 使用 --no-frozen-lockfile 重新解析依赖，避免使用 lockfile 中的内部镜像源
+          pnpm install --no-frozen-lockfile
 
       # 5. 代码检查 & 测试 (发布前必须保证代码是好的)
       - name: Lint & Test
