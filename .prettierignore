@@ -1,0 +1,9 @@
+dist
+node_modules
+.vscode
+.catpaw
+.cursor
+*.d.ts
+public
+package.json
+pnpm-lock.yaml

@@ -1,0 +1,51 @@
+/**
+ * VitePress 自定义样式
+ */
+
+:root {
+  --vp-c-brand-1: var(--ai-color-primary);
+  --vp-c-brand-2: var(--ai-color-primary-light);
+  --vp-c-brand-3: var(--ai-color-primary-dark);
+}
+
+/* Demo 容器样式 */
+.demo-block {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  margin: 16px 0;
+  overflow: hidden;
+
+  &__preview {
+    padding: 24px;
+    background-color: var(--vp-c-bg);
+  }
+
+  &__code {
+    border-top: 1px solid var(--vp-c-divider);
+    background-color: var(--vp-c-bg-soft);
+  }
+}
+
+/* 组件展示区域 */
+.component-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+/* 组件文档表格样式 */
+.vp-doc table {
+  display: table;
+  width: 100%;
+}
+
+.vp-doc th,
+.vp-doc td {
+  padding: 12px 16px;
+}
+

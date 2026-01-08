@@ -1,0 +1,80 @@
+/**
+ * AI UI 暗色主题
+ * 通过在根元素添加 .ai-dark 类来启用
+ */
+
+.ai-dark {
+  // ============================================
+  // 品牌色（暗色模式下略微调整）
+  // ============================================
+  --ai-color-primary: #818cf8;
+  --ai-color-primary-light: #a5b4fc;
+  --ai-color-primary-dark: #6366f1;
+  --ai-color-primary-bg: rgba(99, 102, 241, 0.15);
+
+  // ============================================
+  // 功能色
+  // ============================================
+  --ai-color-success: #34d399;
+  --ai-color-success-light: #6ee7b7;
+  --ai-color-success-dark: #10b981;
+  --ai-color-success-bg: rgba(16, 185, 129, 0.15);
+
+  --ai-color-warning: #fbbf24;
+  --ai-color-warning-light: #fcd34d;
+  --ai-color-warning-dark: #f59e0b;
+  --ai-color-warning-bg: rgba(245, 158, 11, 0.15);
+
+  --ai-color-error: #f87171;
+  --ai-color-error-light: #fca5a5;
+  --ai-color-error-dark: #ef4444;
+  --ai-color-error-bg: rgba(239, 68, 68, 0.15);
+
+  --ai-color-info: #60a5fa;
+  --ai-color-info-light: #93c5fd;
+  --ai-color-info-dark: #3b82f6;
+  --ai-color-info-bg: rgba(59, 130, 246, 0.15);
+
+  // ============================================
+  // 中性色（反转）
+  // ============================================
+  --ai-color-gray-50: #111827;
+  --ai-color-gray-100: #1f2937;
+  --ai-color-gray-200: #374151;
+  --ai-color-gray-300: #4b5563;
+  --ai-color-gray-400: #6b7280;
+  --ai-color-gray-500: #9ca3af;
+  --ai-color-gray-600: #d1d5db;
+  --ai-color-gray-700: #e5e7eb;
+  --ai-color-gray-800: #f3f4f6;
+  --ai-color-gray-900: #f9fafb;
+
+  // ============================================
+  // 语义化颜色
+  // ============================================
+  --ai-text-primary: #f9fafb;
+  --ai-text-secondary: #d1d5db;
+  --ai-text-placeholder: #6b7280;
+  --ai-text-disabled: #4b5563;
+  --ai-text-inverse: #111827;
+
+  --ai-bg-page: #0f172a;
+  --ai-bg-container: #1e293b;
+  --ai-bg-elevated: #334155;
+  --ai-bg-disabled: #1f2937;
+  --ai-bg-mask: rgba(0, 0, 0, 0.65);
+
+  --ai-border-color: #374151;
+  --ai-border-color-light: #1f2937;
+  --ai-border-color-dark: #4b5563;
+
+  // ============================================
+  // 阴影（暗色模式下更深）
+  // ============================================
+  --ai-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+  --ai-shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --ai-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --ai-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --ai-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+}
+

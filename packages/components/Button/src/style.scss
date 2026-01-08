@@ -1,0 +1,333 @@
+/**
+ * AiButton 样式
+ * 番茄红主题 + 白色背景风格，基于 CSS 变量
+ */
+
+.ai-button {
+  // 基础样式
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 var(--ai-spacing-md);
+  height: 32px;
+  border-radius: var(--ai-radius-md);
+  font-size: var(--ai-font-size-sm);
+  line-height: var(--ai-line-height-base);
+  font-weight: var(--ai-font-weight-medium, 500);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  background-image: none;
+  touch-action: manipulation;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+  color: var(--ai-color-text-primary);
+  background-color: var(--ai-color-fill-default);
+  border-color: var(--ai-color-border);
+
+  &:hover {
+    background-color: var(--ai-color-fill-hover);
+    border-color: var(--ai-color-border-strong);
+  }
+
+  &:active {
+    background-color: var(--ai-color-fill-active);
+    transform: translateY(1px);
+  }
+
+  // 类型修饰
+  &--primary {
+    background-color: var(--ai-color-primary);
+    border-color: var(--ai-color-primary);
+    color: #ffffff;
+
+    &:hover {
+      background-color: var(--ai-color-primary-hover);
+      border-color: var(--ai-color-primary-hover);
+    }
+
+    &:active {
+      background-color: var(--ai-color-primary-active);
+      border-color: var(--ai-color-primary-active);
+      box-shadow: 0 0 0 1px rgba(255, 99, 71, 0.45); /* 番茄红微光 */
+    }
+  }
+
+  &--success {
+    background-color: var(--ai-color-success);
+    border-color: var(--ai-color-success);
+    color: #ffffff;
+
+    &:hover {
+      background-color: var(--ai-color-success-light);
+      border-color: var(--ai-color-success-light);
+    }
+
+    &:active {
+      background-color: var(--ai-color-success-dark);
+      border-color: var(--ai-color-success-dark);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4);
+    }
+  }
+
+  &--warning {
+    background-color: var(--ai-color-warning);
+    border-color: var(--ai-color-warning);
+    color: #111827;
+
+    &:hover {
+      background-color: var(--ai-color-warning-light);
+      border-color: var(--ai-color-warning-light);
+    }
+
+    &:active {
+      background-color: var(--ai-color-warning-dark);
+      border-color: var(--ai-color-warning-dark);
+      box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.4);
+    }
+  }
+
+  &--danger {
+    background-color: var(--ai-color-danger);
+    border-color: var(--ai-color-danger);
+    color: #ffffff;
+
+    &:hover {
+      background-color: var(--ai-color-error-light);
+      border-color: var(--ai-color-error-light);
+    }
+
+    &:active {
+      background-color: var(--ai-color-error-dark);
+      border-color: var(--ai-color-error-dark);
+      box-shadow: 0 0 0 1px rgba(249, 115, 115, 0.4);
+    }
+  }
+
+  &--default {
+    background-color: var(--ai-color-fill-default);
+    border-color: var(--ai-color-border);
+    color: var(--ai-color-text-primary);
+
+    &:hover {
+      background-color: var(--ai-color-fill-hover);
+      border-color: var(--ai-color-border-strong);
+    }
+
+    &:active {
+      background-color: var(--ai-color-fill-active);
+    }
+  }
+
+  &--text {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--ai-color-text-secondary);
+    padding-left: 4px;
+    padding-right: 4px;
+
+    &:hover {
+      background-color: rgba(248, 113, 113, 0.12); /* 番茄红偏红的浅背景 */
+      color: var(--ai-color-text-primary);
+    }
+
+    &:active {
+      background-color: rgba(248, 113, 113, 0.2);
+    }
+  }
+
+  // 尺寸修饰
+  &--sm {
+    height: 28px;
+    padding: 0 var(--ai-spacing-sm);
+    font-size: var(--ai-font-size-xs);
+  }
+
+  &--lg {
+    height: 36px;
+    padding: 0 var(--ai-spacing-lg);
+    font-size: var(--ai-font-size-base);
+  }
+
+  // 形态修饰
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+
+  &--round {
+    border-radius: var(--ai-radius-pill);
+  }
+
+  &--circle {
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+
+    &.ai-button--sm {
+      width: 28px;
+      height: 28px;
+    }
+
+    &.ai-button--lg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  // 幽灵按钮
+  &--ghost {
+    background-color: transparent;
+    color: var(--ai-color-text-primary);
+    border-color: var(--ai-color-border);
+
+    &:hover {
+      background-color: rgba(255, 99, 71, 0.12);
+    }
+
+    &:active {
+      background-color: rgba(255, 99, 71, 0.2);
+    }
+
+    &.ai-button--primary {
+      color: var(--ai-color-primary);
+      border-color: var(--ai-color-primary);
+
+      &:hover {
+        background-color: rgba(255, 99, 71, 0.12);
+      }
+
+      &:active {
+        background-color: rgba(255, 99, 71, 0.2);
+      }
+    }
+
+    &.ai-button--success {
+      color: var(--ai-color-success);
+      border-color: var(--ai-color-success);
+
+      &:hover {
+        background-color: rgba(34, 197, 94, 0.12);
+      }
+
+      &:active {
+        background-color: rgba(34, 197, 94, 0.2);
+      }
+    }
+
+    &.ai-button--warning {
+      color: var(--ai-color-warning);
+      border-color: var(--ai-color-warning);
+
+      &:hover {
+        background-color: rgba(234, 179, 8, 0.12);
+      }
+
+      &:active {
+        background-color: rgba(234, 179, 8, 0.2);
+      }
+    }
+
+    &.ai-button--danger {
+      color: var(--ai-color-danger);
+      border-color: var(--ai-color-danger);
+
+      &:hover {
+        background-color: rgba(255, 99, 71, 0.12);
+      }
+
+      &:active {
+        background-color: rgba(255, 99, 71, 0.2);
+      }
+    }
+  }
+
+  // 状态：禁用
+  &--disabled,
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: var(--ai-color-fill-default);
+    border-color: var(--ai-color-border);
+    color: var(--ai-color-text-disabled);
+    box-shadow: none;
+    transform: none;
+
+    &:hover,
+    &:active {
+      background-color: var(--ai-color-fill-default);
+      border-color: var(--ai-color-border);
+      color: var(--ai-color-text-disabled);
+      transform: none;
+    }
+  }
+
+  // 状态：加载中
+  &--loading {
+    cursor: default;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  // 内容区
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  &__text {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &--left {
+      margin-right: 4px;
+    }
+
+    &--right {
+      margin-left: 4px;
+    }
+  }
+
+  &__spinner {
+    position: absolute;
+    left: 8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    opacity: 0.6;
+    animation: ai-button-spin 0.7s linear infinite;
+  }
+
+  &--circle .ai-button__spinner {
+    position: static;
+    left: auto;
+    margin-right: 0;
+  }
+}
+
+@keyframes ai-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

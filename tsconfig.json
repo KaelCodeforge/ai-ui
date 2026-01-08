@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "baseUrl": ".",
+    "paths": {
+      "@ai-ui": ["packages/index.ts"],
+      "@ai-ui/*": ["packages/*"],
+      "@ai-ui/components": ["packages/components/index.ts"],
+      "@ai-ui/components/*": ["packages/components/*"],
+      "@ai-ui/hooks": ["packages/hooks/index.ts"],
+      "@ai-ui/utils": ["packages/utils/index.ts"],
+      "@ai-ui/theme": ["packages/theme/index.scss"]
+    },
+    "types": ["vitest/globals", "node"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue",
+    "playground/**/*.ts",
+    "playground/**/*.vue",
+    "docs/**/*.ts",
+    "docs/**/*.vue"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
+
