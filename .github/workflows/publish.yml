@@ -20,6 +20,11 @@ jobs:
     # 权限设置（读取代码）
     permissions:
       contents: read
+    
+    # 统一强制 registry（避免 runner/组织级别配置指向内部镜像）
+    env:
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+      PNPM_CONFIG_REGISTRY: https://registry.npmjs.org/
 
     steps:
       # 1. 把代码拉下来
@@ -57,12 +62,12 @@ jobs:
 
       # 6. 安装依赖（强制使用官方 npm registry，并允许重写 lockfile 到官方 tarball）
       - name: Install Dependencies
-        env:
-          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
-          PNPM_CONFIG_REGISTRY: https://registry.npmjs.org/
         run: |
+          echo "npm registry: $(npm config get registry)"
+          echo "pnpm registry: $(pnpm config get registry)"
+          npm config set registry https://registry.npmjs.org/
           pnpm config set registry https://registry.npmjs.org/
-          pnpm install --no-frozen-lockfile
+          pnpm install --no-frozen-lockfile --registry=https://registry.npmjs.org/
 
       # 7. 代码检查 & 测试 (发布前必须保证代码是好的)
       - name: Lint & Test
