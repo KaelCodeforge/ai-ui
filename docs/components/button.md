@@ -2,7 +2,7 @@
 
 通用操作按钮，支持多种类型、尺寸和形态，适用于中后台界面。
 
-> **注意**：本组件默认采用暗黑风格主题，适用于暗色背景的中后台界面。
+> **注意**：本组件默认采用**白色背景 + 番茄红主色**主题（通过 CSS 变量可覆盖为暗色主题）。
 
 ## 基本使用
 
@@ -70,7 +70,7 @@
 <DemoContainer title="更多形态" description="支持幽灵按钮、块级按钮、圆角和圆形按钮。">
   <template #preview>
     <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-      <div style="display: flex; gap: 12px; background: var(--ai-color-bg-elevated, #0b1120); padding: 12px; border-radius: 4px;">
+      <div style="display: flex; gap: 12px; background: var(--ai-color-fill-default, #f9fafb); padding: 12px; border-radius: 4px;">
         <AiButton ghost type="primary">幽灵按钮</AiButton>
         <AiButton round type="primary">圆角按钮</AiButton>
         <AiButton circle type="primary">圆</AiButton>

@@ -39,18 +39,18 @@
 使用 `color` 属性来定义图标颜色。
 
 <div class="component-preview">
-  <AiLoadingIcon color="#6366f1" />
-  <AiLoadingIcon color="#10b981" />
-  <AiLoadingIcon color="#f59e0b" />
-  <AiLoadingIcon color="#ef4444" />
+  <AiLoadingIcon color="#ff4d4f" />
+  <AiLoadingIcon color="#22c55e" />
+  <AiLoadingIcon color="#eab308" />
+  <AiLoadingIcon color="#ff4d4f" />
 </div>
 
 ```vue
 <template>
-  <AiLoadingIcon color="#6366f1" />
-  <AiLoadingIcon color="#10b981" />
-  <AiLoadingIcon color="#f59e0b" />
-  <AiLoadingIcon color="#ef4444" />
+  <AiLoadingIcon color="#ff4d4f" />
+  <AiLoadingIcon color="#22c55e" />
+  <AiLoadingIcon color="#eab308" />
+  <AiLoadingIcon color="#ff4d4f" />
 </template>
 ```
 
