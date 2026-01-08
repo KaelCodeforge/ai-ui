@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
+  base: '/ai-ui/',
   title: 'AI UI',
   description: 'Vue 3 组件库，面向中后台场景',
   lang: 'zh-CN',

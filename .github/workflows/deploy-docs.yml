@@ -21,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+      PNPM_CONFIG_REGISTRY: https://registry.npmjs.org/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,8 +44,21 @@ jobs:
           node-version: 20
           cache: pnpm # 此时 pnpm 已安装，缓存才能生效
 
+      # 处理 pnpm-lock.yaml 中的内部镜像 tarball（r.npm.sankuai.com）
+      - name: Sanitize lockfile
+        run: |
+          if [ -f pnpm-lock.yaml ] && grep -q "r.npm.sankuai.com" pnpm-lock.yaml; then
+            echo "Found internal tarball urls in pnpm-lock.yaml; removing lockfile for CI install."
+            rm -f pnpm-lock.yaml
+          fi
+
       - name: Install dependencies
-        run: pnpm install
+        run: |
+          echo "npm registry: $(npm config get registry)"
+          echo "pnpm registry: $(pnpm config get registry)"
+          npm config set registry https://registry.npmjs.org/
+          pnpm config set registry https://registry.npmjs.org/
+          pnpm install --no-frozen-lockfile --registry=https://registry.npmjs.org/
 
       - name: Build Docs
         run: pnpm docs:build
