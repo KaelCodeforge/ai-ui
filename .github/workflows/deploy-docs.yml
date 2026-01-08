@@ -1,0 +1,70 @@
+name: Deploy Docs
+
+on:
+  # 触发条件：推送到 main 分支时
+  push:
+    branches: [main]
+    # 可选：只有 docs 目录或组件代码变动时才触发（节省资源）
+    paths:
+      - 'docs/**'
+      - 'packages/**'
+      - '.github/workflows/**'
+
+  # 允许你在 GitHub 页面上手动点按钮触发
+  workflow_dispatch:
+
+# 权限设置（必须有，否则发不上去）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 并发控制：如果有新的部署来了，取消正在进行的旧部署
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # 构建任务
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Docs
+        # 注意：这里必须对应你 package.json 里的 script 名字
+        run: pnpm docs:build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  # 部署任务
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
