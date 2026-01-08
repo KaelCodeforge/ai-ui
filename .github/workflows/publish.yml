@@ -74,7 +74,21 @@ jobs:
       # 9. 发布到 npm
       # 这一步会自动读取你的 package.json 里的版本号发布
       - name: Publish
-        run: npm publish --access public
         env:
           # 这里引用你在 GitHub 后台设置的 Secret
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "NPM_TOKEN is not set. Please add it in GitHub repo Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+          # Explicit npm auth for npm publish (avoid ENEEDAUTH)
+          cat > ~/.npmrc <<'EOF'
+          registry=https://registry.npmjs.org/
+          always-auth=true
+          //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+          EOF
+
+          npm whoami
+          npm publish --access public
