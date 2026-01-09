@@ -2,6 +2,10 @@
 
 一个基于 Vue 3 + TypeScript 的组件库，面向中后台场景。
 
+## 🌐 在线地址
+
+- [在线文档 / 组件预览](https://kaelcodeforge.github.io/ai-ui/)
+
 ## ✨ 特性
 
 - 🚀 **Vue 3 + TypeScript** - 基于 Vue 3 Composition API 和 TypeScript 构建
