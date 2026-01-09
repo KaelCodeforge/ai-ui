@@ -42,7 +42,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm # 此时 pnpm 已安装，缓存才能生效
+          # 注意：不要使用 actions/setup-node 的 `cache: pnpm`
+          # 它会在这里执行 `pnpm store path`，若 workspace 配置被污染会直接失败。
+          # 我们在后续用 `pnpm install` + CI 重新解析（必要时删除 lockfile）保证稳定性。
 
       # 处理 pnpm-lock.yaml 中的内部镜像 tarball（r.npm.sankuai.com）
       - name: Sanitize lockfile
