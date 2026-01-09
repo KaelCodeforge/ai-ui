@@ -13,10 +13,10 @@
 
 ```bash
 # npm
-npm install ai-ui
+npm install @axin666/ai-ui
 
 # pnpm
-pnpm add ai-ui
+pnpm add @axin666/ai-ui
 ```
 
 ## 🔨 使用
@@ -25,8 +25,8 @@ pnpm add ai-ui
 
 ```ts
 import { createApp } from 'vue'
-import AiUI from '@ai-ui'
-import '@ai-ui/theme/index.scss'
+import AiUI from '@axin666/ai-ui'
+import '@axin666/ai-ui/dist/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -39,13 +39,13 @@ app.mount('#app')
 ```vue
 <script setup lang="ts">
 // 从主入口引入组件
-import { AiButton, AiLoadingIcon } from '@ai-ui'
+import { AiButton, AiLoadingIcon } from '@axin666/ai-ui'
 
 // 导入工具函数
-import { createBem } from '@ai-ui'
+import { createBem } from '@axin666/ai-ui'
 
 // 导入 Hooks
-import { useEventListener } from '@ai-ui'
+import { useEventListener } from '@axin666/ai-ui'
 </script>
 
 <template>

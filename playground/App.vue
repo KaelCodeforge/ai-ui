@@ -5,6 +5,11 @@
 import { ref } from 'vue'
 
 const loading = ref(false)
+const inputValue = ref('')
+const inputClearable = ref('Hello AiUI')
+const inputPassword = ref('')
+const inputPrefix = ref('')
+const inputGroup = ref('')
 
 function handleClick() {
   loading.value = true
@@ -89,6 +94,82 @@ function handleClick() {
           <div class="demo-column">
             <AiButton type="primary" block>块级主要按钮</AiButton>
             <AiButton block>块级默认按钮</AiButton>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="margin-top: 24px">
+        <h2>Input 输入框</h2>
+
+        <div class="demo-group">
+          <h3>基础用法</h3>
+          <div class="demo-column">
+            <AiInput v-model="inputValue" placeholder="请输入内容" />
+            <p class="demo-text">当前输入: {{ inputValue }}</p>
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>禁用状态</h3>
+          <div class="demo-column">
+            <AiInput disabled placeholder="禁用状态" />
+            <AiInput disabled model-value="已禁用的值" />
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>可清空</h3>
+          <div class="demo-column">
+            <AiInput v-model="inputClearable" clearable placeholder="请输入内容" />
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>密码框</h3>
+          <div class="demo-column">
+            <AiInput
+              v-model="inputPassword"
+              type="password"
+              show-password
+              placeholder="请输入密码"
+            />
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>各种尺寸</h3>
+          <div class="demo-column">
+            <AiInput size="lg" placeholder="Large Size (36px)" />
+            <AiInput size="md" placeholder="Medium Size (32px)" />
+            <AiInput size="sm" placeholder="Small Size (28px)" />
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>带插槽 (Prefix / Suffix)</h3>
+          <div class="demo-row">
+            <AiInput v-model="inputPrefix" placeholder="搜索一下..." style="width: 300px">
+              <template #prefix>
+                <span style="font-size: 14px">🔍</span>
+              </template>
+            </AiInput>
+            <AiInput placeholder="日期选择" style="width: 300px">
+              <template #suffix>
+                <span style="font-size: 14px">📅</span>
+              </template>
+            </AiInput>
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <h3>复合型输入框 (Prepend / Append)</h3>
+          <div class="demo-column" style="max-width: 450px">
+            <AiInput v-model="inputGroup" placeholder="请输入网址">
+              <template #prepend>Http://</template>
+            </AiInput>
+            <AiInput placeholder="请输入内容">
+              <template #append>.com</template>
+            </AiInput>
           </div>
         </div>
       </section>
@@ -178,6 +259,12 @@ body {
     padding: var(--ai-spacing-lg);
     border-radius: var(--ai-radius-md);
   }
+}
+
+.demo-text {
+  font-size: var(--ai-font-size-sm);
+  color: var(--ai-color-primary);
+  margin-top: var(--ai-spacing-xs);
 }
 
 .demo-column {

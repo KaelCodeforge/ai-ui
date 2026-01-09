@@ -4,12 +4,12 @@ layout: home
 hero:
   name: AI UI
   text: Vue 3 组件库
-  tagline: 面向中后台场景的现代化组件库
+  tagline: 番茄红主题 · 现代化中后台组件库
   actions:
     - theme: brand
       text: 快速开始
       link: /guide/getting-started
-    - theme: alt
+    - theme: brand
       text: 组件文档
       link: /components/button
 

@@ -1,0 +1,35 @@
+:root {
+  /* Brand (Tomato Red) */
+  --vp-c-brand-1: #ff4d4f;
+  --vp-c-brand-2: #ff7875;
+  --vp-c-brand-3: #d9363e;
+  --vp-c-brand-soft: rgba(255, 77, 79, 0.16);
+
+  /* Home hero */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ff4d4f 30%, #ff7875);
+}
+
+.dark {
+  /* Brand (Tomato Red) */
+  --vp-c-brand-1: #ff4d4f;
+  --vp-c-brand-2: #ff7875;
+  --vp-c-brand-3: #d9363e;
+  --vp-c-brand-soft: rgba(255, 77, 79, 0.16);
+
+  /* Home hero */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ff4d4f 30%, #ff7875);
+}
+
+/* Navbar title (next to logo) */
+.VPNavBarTitle .title {
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+}
+
+.VPNavBarTitle:hover .title {
+  color: var(--vp-c-brand-2);
+}
+
+

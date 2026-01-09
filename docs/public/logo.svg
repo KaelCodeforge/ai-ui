@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aiUiLogoGrad" x1="32" y1="32" x2="224" y2="224" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff4d4f"/>
+      <stop offset="1" stop-color="#ff7875"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background (transparent) -->
+
+  <!-- layout constants:
+       padding: 20
+       gap: 24
+       cell: 92
+       stroke: 14
+       radius: 18
+  -->
+  <g stroke="url(#aiUiLogoGrad)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <!-- top-left card -->
+    <rect x="20" y="20" width="92" height="92" rx="18"/>
+
+    <!-- top-right empty card -->
+    <rect x="144" y="20" width="92" height="92" rx="18"/>
+
+    <!-- bottom-left empty card -->
+    <rect x="20" y="144" width="92" height="92" rx="18"/>
+  </g>
+
+  <!-- avatar in top-left -->
+  <g fill="url(#aiUiLogoGrad)">
+    <circle cx="66" cy="58" r="18"/>
+    <!-- simplified bust -->
+    <path d="M38 104c0-16 12-28 28-28s28 12 28 28v8H38v-8z"/>
+  </g>
+
+  <!-- bottom-right filled circle -->
+  <circle cx="190" cy="190" r="46" fill="url(#aiUiLogoGrad)"/>
+</svg>
+
+

@@ -8,4 +8,3 @@ import '../packages/theme/index.scss'
 
 // 导出所有内容
 export * from '../packages'
-

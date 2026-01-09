@@ -1,7 +1,7 @@
 /**
- * 加载图标 Props 接口
+ * 图标通用 Props 类型
  */
-export interface LoadingIconProps {
+export type IconProps = {
   /**
    * 图标大小
    * @default '1em'
@@ -13,8 +13,11 @@ export interface LoadingIconProps {
    */
   color?: string
   /**
-   * 线条宽度
+   * 线条宽度 (仅对部分描边类图标有效)
    * @default 2
    */
   strokeWidth?: number
 }
+
+/** 兼容旧命名 */
+export type LoadingIconProps = IconProps

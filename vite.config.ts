@@ -28,6 +28,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@ai-ui': resolve(__dirname, 'packages'),
+      '@axin666/ai-ui/Icon': resolve(__dirname, 'packages/components/Icon/index.ts'),
     },
   },
   css: {

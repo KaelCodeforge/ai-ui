@@ -8,10 +8,10 @@
 
 ```bash
 # npm
-npm install ai-ui
+npm install @axin666/ai-ui
 
 # pnpm
-pnpm add ai-ui
+pnpm add @axin666/ai-ui
 ```
 
 ## 完整引入
@@ -21,8 +21,8 @@ pnpm add ai-ui
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import AiUI from 'ai-ui'
-import 'ai-ui/dist/style.css'
+import AiUI from '@axin666/ai-ui'
+import '@axin666/ai-ui/dist/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -36,8 +36,8 @@ app.mount('#app')
 
 ```vue
 <script setup lang="ts">
-import { AiButton } from 'ai-ui'
-import 'ai-ui/dist/style.css'
+import { AiButton } from '@axin666/ai-ui'
+import '@axin666/ai-ui/dist/style.css'
 </script>
 
 <template>
@@ -72,4 +72,3 @@ AI UI 使用 CSS 变量来管理主题，你可以通过覆盖变量来定制主
 ```ts
 document.documentElement.classList.add('ai-dark')
 ```
-

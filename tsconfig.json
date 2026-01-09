@@ -25,7 +25,8 @@
       "@ai-ui/components/*": ["packages/components/*"],
       "@ai-ui/hooks": ["packages/hooks/index.ts"],
       "@ai-ui/utils": ["packages/utils/index.ts"],
-      "@ai-ui/theme": ["packages/theme/index.scss"]
+      "@ai-ui/theme": ["packages/theme/index.scss"],
+      "@axin666/ai-ui/Icon": ["packages/components/Icon/index.ts"]
     },
     "types": ["vitest/globals", "node"]
   },

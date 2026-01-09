@@ -1,0 +1,188 @@
+.ai-input {
+  --ai-input-height-sm: 28px;
+  --ai-input-height-md: 32px;
+  --ai-input-height-lg: 36px;
+
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  font-size: var(--ai-font-size-sm);
+  line-height: var(--ai-line-height-base);
+  box-sizing: border-box;
+  vertical-align: middle;
+
+  &__wrapper {
+    display: inline-flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 11px;
+    background-color: var(--ai-color-fill-default);
+    background-image: none;
+    border: 1px solid var(--ai-color-border);
+    border-radius: var(--ai-radius-md);
+    transition: var(--ai-transition-base);
+    cursor: text;
+
+    &:hover {
+      border-color: var(--ai-color-gray-400);
+    }
+
+    &.is-focus {
+      border-color: var(--ai-color-primary);
+      box-shadow: 0 0 0 1px var(--ai-color-primary);
+    }
+  }
+
+  &__inner {
+    width: 100%;
+    flex-grow: 1;
+    color: var(--ai-color-text-primary);
+    font-size: inherit;
+    height: calc(100% - 2px);
+    line-height: inherit;
+    padding: 0;
+    outline: none;
+    border: none;
+    background: none;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: var(--ai-color-text-secondary);
+    }
+
+    // 禁用原生密码切换
+    &::-ms-reveal {
+      display: none;
+    }
+  }
+
+  &__prefix,
+  &__suffix {
+    display: inline-flex;
+    white-space: nowrap;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    height: 100%;
+    text-align: center;
+    color: var(--ai-color-text-secondary);
+    transition: all var(--ai-transition-base);
+    pointer-events: all;
+  }
+
+  &__prefix {
+    margin-right: 8px;
+  }
+
+  &__suffix {
+    margin-left: 8px;
+  }
+
+  &__clear,
+  &__password {
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 4px;
+    transition: color var(--ai-transition-base);
+
+    &:hover {
+      color: var(--ai-color-text-primary);
+    }
+  }
+
+  // 尺寸修饰
+  &--sm {
+    .ai-input__wrapper {
+      height: var(--ai-input-height-sm);
+    }
+  }
+
+  &--md {
+    .ai-input__wrapper {
+      height: var(--ai-input-height-md);
+    }
+  }
+
+  &--lg {
+    .ai-input__wrapper {
+      height: var(--ai-input-height-lg);
+      font-size: var(--ai-font-size-base);
+    }
+  }
+
+  // 状态修饰
+  &--disabled {
+    cursor: not-allowed;
+
+    .ai-input__wrapper {
+      background-color: var(--ai-bg-disabled);
+      border-color: var(--ai-color-border);
+      color: var(--ai-color-text-disabled);
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: var(--ai-color-border);
+      }
+    }
+
+    .ai-input__inner {
+      color: var(--ai-color-text-disabled);
+      cursor: not-allowed;
+    }
+  }
+}
+
+// 复合型输入框支持
+.ai-input-group {
+  display: inline-flex;
+  width: 100%;
+  align-items: stretch;
+
+  &__prepend,
+  &__append {
+    background-color: var(--ai-color-fill-default);
+    color: var(--ai-color-text-secondary);
+    border: 1px solid var(--ai-color-border);
+    border-radius: var(--ai-radius-md);
+    padding: 0 12px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__prepend {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &__append {
+    border-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .ai-input__wrapper {
+    border-radius: 0;
+  }
+
+  &--prepend {
+    .ai-input__wrapper {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: var(--ai-radius-md);
+      border-bottom-right-radius: var(--ai-radius-md);
+    }
+  }
+
+  &--append {
+    .ai-input__wrapper {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: var(--ai-radius-md);
+      border-bottom-left-radius: var(--ai-radius-md);
+    }
+  }
+}
+

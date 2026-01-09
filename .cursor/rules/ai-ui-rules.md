@@ -369,9 +369,9 @@ ai-ui/
 3.2 默认值：
   - 使用 `withDefaults(defineProps<Props>(), {...})` 设置默认值：
     ```ts
-    const props = withDefaults(defineProps<ButtonProps>(), {
-      type: 'default',
-      size: 'md',
+const props = withDefaults(defineProps<ButtonProps>(), {
+  type: 'default',
+  size: 'md',
       disabled: false,
       loading: false,
       block: false,
@@ -473,7 +473,7 @@ ai-ui/
   - 边界状态测试（disabled、loading、error 等）。
 
 示例（AiButton）：
-  ```ts
+```ts
   import { mount } from '@vue/test-utils';
   import AiButton from '../src/AiButton.vue';
 
@@ -498,6 +498,37 @@ ai-ui/
     });
   });
   ```
+
+7. 图标 (Icon) 维护规范
+
+7.1 禁止内联 SVG：
+  - 禁止在任何组件（如 AiButton, AiInput）的 `.vue` 文件中直接编写 `<svg>` 标签。
+
+7.2 统一维护：
+  - 所有 SVG 图标必须提取到 `packages/components/Icon/src/` 目录下，作为独立的 `.vue` 组件维护。
+  - 图标组件命名规范：`Ai[Name]Icon.vue`（例如 `AiCloseCircleIcon.vue`, `AiEyeIcon.vue`）。
+
+7.3 图标组件实现：
+  - 图标组件统一使用 `packages/components/Icon/src/props.ts` 中定义的 `IconProps`。
+  - 支持 `size` (string | number) 和 `color` (string) 属性。
+  - 示例：
+    ```vue
+    <script setup lang="ts">
+    import { computed } from 'vue'
+    import type { IconProps } from './props'
+    defineOptions({ name: 'AiXxxIcon' })
+    const props = withDefaults(defineProps<IconProps>(), { size: '1em', color: 'currentColor' })
+    </script>
+    <template>
+      <span class="ai-icon">
+        <svg :width="sizeValue" :height="sizeValue" :fill="color" viewBox="...">...</svg>
+      </span>
+    </template>
+    ```
+
+7.4 导出与注册：
+  - 新图标需在 `packages/components/Icon/index.ts` 中导出。
+  - 需在 `packages/components/index.ts` 的 `components` 数组中注册，以便全局使用。
 
 6. 文档规范（简要）
 
