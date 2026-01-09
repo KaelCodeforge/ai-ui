@@ -1,6 +1,6 @@
 {
   "name": "@axin666/ai-ui",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A Vue 3 component library for admin systems",
   "type": "module",
   "main": "dist/ai-ui.cjs.js",
