@@ -109,6 +109,9 @@ export default defineConfig({
     resolve: {
       alias: {
         '@ai-ui': fileURLToPath(new URL('../../packages', import.meta.url)),
+        '@axin666/ai-ui/Icon': fileURLToPath(
+          new URL('../../packages/components/Icon/index.ts', import.meta.url),
+        ),
       },
     },
   },
