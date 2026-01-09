@@ -5,10 +5,13 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [vue()],
   resolve: {
-    alias: {
-      '@ai-ui': resolve(__dirname, 'packages'),
-      '@axin666/ai-ui/Icon': resolve(__dirname, 'packages/components/Icon/index.ts'),
-    },
+    alias: [
+      { find: '@ai-ui', replacement: resolve(__dirname, 'packages') },
+      {
+        find: /^@axin666\/ai-ui\/Icon$/,
+        replacement: resolve(__dirname, 'packages/components/Icon/index.ts'),
+      },
+    ],
   },
   test: {
     globals: true,

@@ -26,10 +26,13 @@ export default defineConfig({
       : []),
   ],
   resolve: {
-    alias: {
-      '@ai-ui': resolve(__dirname, 'packages'),
-      '@axin666/ai-ui/Icon': resolve(__dirname, 'packages/components/Icon/index.ts'),
-    },
+    alias: [
+      { find: '@ai-ui', replacement: resolve(__dirname, 'packages') },
+      {
+        find: /^@axin666\/ai-ui\/Icon$/,
+        replacement: resolve(__dirname, 'packages/components/Icon/index.ts'),
+      },
+    ],
   },
   css: {
     preprocessorOptions: {
