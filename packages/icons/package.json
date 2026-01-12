@@ -1,6 +1,6 @@
 {
   "name": "@axin666/ai-ui-icons",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "SVG icon components for @axin666/ai-ui",
   "type": "module",
   "main": "src/index.ts",
@@ -26,4 +26,3 @@
     "fs-extra": "^11.2.0"
   }
 }
-
