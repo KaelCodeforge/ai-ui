@@ -19,18 +19,22 @@
     padding: 1px 11px;
     background-color: var(--ai-color-fill-default);
     background-image: none;
-    border: 1px solid var(--ai-color-border);
+    border: none;
     border-radius: var(--ai-radius-md);
-    transition: var(--ai-transition-base);
+    transition: box-shadow 0.2s;
     cursor: text;
+    // 使用 box-shadow 模拟边框，方便做 focus ring
+    box-shadow: 0 0 0 1px var(--ai-color-border);
 
     &:hover {
-      border-color: var(--ai-color-gray-400);
+      box-shadow: 0 0 0 1px var(--ai-color-text-secondary);
     }
 
     &.is-focus {
-      border-color: var(--ai-color-primary);
-      box-shadow: 0 0 0 1px var(--ai-color-primary);
+      // Focus 时边框变红
+      box-shadow: 0 0 0 1px var(--ai-color-primary),
+        // 可选：外发光效果
+        0 0 0 2px rgba(255, 77, 79, 0.2);
     }
   }
 
@@ -116,12 +120,12 @@
 
     .ai-input__wrapper {
       background-color: var(--ai-bg-disabled);
-      border-color: var(--ai-color-border);
       color: var(--ai-color-text-disabled);
       cursor: not-allowed;
+      box-shadow: 0 0 0 1px var(--ai-color-border);
 
       &:hover {
-        border-color: var(--ai-color-border);
+        box-shadow: 0 0 0 1px var(--ai-color-border);
       }
     }
 

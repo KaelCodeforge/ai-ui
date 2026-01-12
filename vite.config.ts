@@ -29,8 +29,8 @@ export default defineConfig({
     alias: [
       { find: '@ai-ui', replacement: resolve(__dirname, 'packages') },
       {
-        find: /^@axin666\/ai-ui\/Icon$/,
-        replacement: resolve(__dirname, 'packages/components/Icon/index.ts'),
+        find: '@axin666/ai-ui-icons',
+        replacement: resolve(__dirname, 'packages/icons/src/index'),
       },
     ],
   },

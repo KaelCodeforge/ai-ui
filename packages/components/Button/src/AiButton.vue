@@ -5,55 +5,38 @@
  * @description 通用操作按钮，支持多种类型、尺寸和形态。
  */
 
-import { computed, useSlots, h } from 'vue'
+import { computed, resolveDynamicComponent, useSlots, h } from 'vue'
 import { createBem } from '@ai-ui/utils'
-import type { ButtonProps } from './props'
+import { buttonProps, buttonEmits } from './props'
 
 defineOptions({
   name: 'AiButton',
 })
 
-const props = withDefaults(defineProps<ButtonProps>(), {
-  type: 'default',
-  size: 'md',
-  disabled: false,
-  loading: false,
-  ghost: false,
-  block: false,
-  round: false,
-  circle: false,
-  nativeType: 'button',
-})
-
-const emit = defineEmits<{
-  /** 点击事件 */
-  (e: 'click', evt: MouseEvent): void
-}>()
+const props = defineProps(buttonProps)
+const emit = defineEmits(buttonEmits)
 
 const slots = useSlots()
 
 /** BEM 类名生成器 */
 const bem = createBem('ai-button')
 
-/** 是否渲染为链接 */
-const isLink = computed(() => !!props.href)
-
 /** 计算类名 */
 const classes = computed(() => {
-  const baseClass = bem()
-  const classesList = [baseClass, `${baseClass}--${props.type}`, `${baseClass}--${props.size}`]
+  const cls: Array<string> = [bem()]
 
-  // 形态修饰符（BEM 格式）
-  if (props.block) classesList.push(`${baseClass}--block`)
-  if (props.ghost) classesList.push(`${baseClass}--ghost`)
-  if (props.round) classesList.push(`${baseClass}--round`)
-  if (props.circle) classesList.push(`${baseClass}--circle`)
+  if (props.type) cls.push(`ai-button--${props.type}`)
+  if (props.size) cls.push(`ai-button--${props.size}`)
 
-  // 状态类（BEM 格式）
-  if (props.loading) classesList.push(`${baseClass}--loading`)
-  if (props.disabled) classesList.push(`${baseClass}--disabled`)
+  if (props.plain) cls.push('is-plain')
+  if (props.round) cls.push('is-round')
+  if (props.circle) cls.push('is-circle')
+  if (props.disabled) cls.push('is-disabled')
+  if (props.loading) cls.push('is-loading')
 
-  return classesList
+  if (props.link || props.type === 'text') cls.push('is-link')
+
+  return cls
 })
 
 /** 处理点击事件 */
@@ -66,46 +49,70 @@ const handleClick = (evt: MouseEvent) => {
   emit('click', evt)
 }
 
-/** 渲染图标辅助函数 */
-const renderIcon = (icon: any) => {
-  if (!icon) return null
-  return typeof icon === 'string' ? icon : h(icon)
-}
+// 默认加载图标（内联 SVG spinner）
+const defaultLoadingIcon = () =>
+  h(
+    'svg',
+    {
+      width: '14',
+      height: '14',
+      viewBox: '0 0 24 24',
+      fill: 'none',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    [
+      h('path', {
+        d: 'M21 12a9 9 0 1 1-6.219-8.56',
+        stroke: 'currentColor',
+        'stroke-width': '2',
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+      }),
+    ],
+  )
+
+const currentIcon = computed(() => {
+  if (props.loading) {
+    return props.loadingIcon
+      ? resolveDynamicComponent(props.loadingIcon as any)
+      : defaultLoadingIcon
+  }
+  return props.icon ? resolveDynamicComponent(props.icon as any) : null
+})
+
+const hasText = computed(() => {
+  return !!slots.default
+})
+
+const iconClass = computed(() => {
+  return [bem('icon'), props.loading ? 'is-loading' : '', hasText.value ? 'is-with-text' : '']
+})
+
+const customStyle = computed(() => {
+  if (!props.color) return undefined
+  return {
+    '--ai-button-custom-color': props.color,
+  } as Record<string, string>
+})
 </script>
 
 <template>
-  <component
-    :is="isLink ? 'a' : 'button'"
+  <button
     :class="classes"
-    :href="isLink ? href : undefined"
-    :target="isLink ? target : undefined"
-    :type="!isLink ? nativeType : undefined"
-    :disabled="!isLink && disabled"
+    :type="nativeType"
+    :disabled="disabled || loading"
+    :autofocus="autofocus"
+    :style="customStyle"
     @click="handleClick"
   >
-    <span v-if="loading" :class="bem('spinner')" />
-
-    <span :class="bem('content')">
-      <!-- 左侧图标 -->
-      <span v-if="slots.icon || icon" :class="[bem('icon'), bem('icon', 'left')]">
-        <slot name="icon">
-          <component :is="renderIcon(icon)" />
-        </slot>
-      </span>
-
-      <!-- 默认插槽内容 -->
-      <span :class="bem('text')">
-        <slot />
-      </span>
-
-      <!-- 右侧图标 -->
-      <span v-if="slots.iconRight || iconRight" :class="[bem('icon'), bem('icon', 'right')]">
-        <slot name="iconRight">
-          <component :is="renderIcon(iconRight)" />
-        </slot>
-      </span>
+    <span v-if="currentIcon" :class="iconClass" aria-hidden="true">
+      <component :is="currentIcon" />
     </span>
-  </component>
+
+    <span v-if="slots.default" :class="bem('text')">
+      <slot />
+    </span>
+  </button>
 </template>
 
 <style lang="scss">

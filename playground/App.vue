@@ -44,20 +44,20 @@ function handleClick() {
         <div class="demo-group">
           <h3>按钮尺寸</h3>
           <div class="demo-row">
-            <AiButton type="primary" size="sm">小型按钮</AiButton>
-            <AiButton type="primary" size="md">中型按钮</AiButton>
-            <AiButton type="primary" size="lg">大型按钮</AiButton>
+            <AiButton type="primary" size="small">小型按钮</AiButton>
+            <AiButton type="primary">默认按钮</AiButton>
+            <AiButton type="primary" size="large">大型按钮</AiButton>
           </div>
         </div>
 
         <div class="demo-group">
-          <h3>幽灵按钮</h3>
+          <h3>朴素按钮（plain）</h3>
           <div class="demo-row ghost-demo">
-            <AiButton ghost>默认幽灵</AiButton>
-            <AiButton type="primary" ghost>主要幽灵</AiButton>
-            <AiButton type="success" ghost>成功幽灵</AiButton>
-            <AiButton type="warning" ghost>警告幽灵</AiButton>
-            <AiButton type="danger" ghost>危险幽灵</AiButton>
+            <AiButton plain>默认朴素</AiButton>
+            <AiButton type="primary" plain>主要朴素</AiButton>
+            <AiButton type="success" plain>成功朴素</AiButton>
+            <AiButton type="warning" plain>警告朴素</AiButton>
+            <AiButton type="danger" plain>危险朴素</AiButton>
           </div>
         </div>
 
@@ -90,10 +90,11 @@ function handleClick() {
         </div>
 
         <div class="demo-group">
-          <h3>块级按钮</h3>
-          <div class="demo-column">
-            <AiButton type="primary" block>块级主要按钮</AiButton>
-            <AiButton block>块级默认按钮</AiButton>
+          <h3>链接按钮（link / text）</h3>
+          <div class="demo-row">
+            <AiButton link>链接按钮</AiButton>
+            <AiButton link type="primary">主要链接</AiButton>
+            <AiButton type="text">Text 按钮</AiButton>
           </div>
         </div>
       </section>

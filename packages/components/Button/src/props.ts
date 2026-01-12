@@ -1,83 +1,80 @@
-import type { ComponentSize, ComponentType } from '../../types'
-import type { Component } from 'vue'
+import type { PropType, Component, ExtractPropTypes } from 'vue'
 
-/** 原生按钮类型 */
+export type ButtonType =
+  | ''
+  | 'default'
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'text'
+
+export type ButtonSize = '' | 'default' | 'small' | 'large'
+
 export type ButtonNativeType = 'button' | 'submit' | 'reset'
-/** 按钮样式类型，扩展了 text 类型 */
-export type ButtonType = ComponentType | 'text'
 
-export interface ButtonProps {
-  /**
-   * 按钮类型
-   * @default 'default'
-   */
-  type?: ButtonType
+export const buttonProps = {
+  // 类型
+  type: {
+    type: String as PropType<ButtonType>,
+    default: '',
+  },
 
-  /**
-   * 按钮尺寸
-   * @default 'md'
-   */
-  size?: ComponentSize
+  // 尺寸 (注意 Element Plus 使用 large/small，不是 lg/sm)
+  size: {
+    type: String as PropType<ButtonSize>,
+    default: '',
+  },
 
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean
+  // 原生 type
+  nativeType: {
+    type: String as PropType<ButtonNativeType>,
+    default: 'button',
+  },
 
-  /**
-   * 是否加载中
-   * @default false
-   */
-  loading?: boolean
+  // 朴素按钮 (幽灵/描边风格)
+  plain: Boolean,
 
-  /**
-   * 幽灵按钮（透明背景，仅显示边框）
-   * @default false
-   */
-  ghost?: boolean
+  // 圆角
+  round: Boolean,
 
-  /**
-   * 是否块级按钮（宽度 100%）
-   * @default false
-   */
-  block?: boolean
+  // 圆形 (通常用于图标)
+  circle: Boolean,
 
-  /**
-   * 是否使用大圆角
-   * @default false
-   */
-  round?: boolean
+  // 加载中
+  loading: Boolean,
 
-  /**
-   * 是否圆形按钮（宽高相等，常用于图标按钮）
-   * @default false
-   */
-  circle?: boolean
+  // 自定义加载图标
+  loadingIcon: {
+    type: [String, Object] as PropType<string | Component>,
+    default: undefined,
+  },
 
-  /**
-   * 原生 button 类型
-   * @default 'button'
-   */
-  nativeType?: ButtonNativeType
+  // 禁用
+  disabled: Boolean,
 
-  /**
-   * 左侧图标，优先使用 icon 插槽
-   */
-  icon?: string | Component
+  // 图标
+  icon: {
+    type: [String, Object] as PropType<string | Component>,
+    default: undefined,
+  },
 
-  /**
-   * 右侧图标，优先使用 iconRight 插槽
-   */
-  iconRight?: string | Component
+  // 自动聚焦
+  autofocus: Boolean,
 
-  /**
-   * 如果设置 href，则渲染为 a 标签
-   */
-  href?: string
+  // 是否为链接/文字按钮
+  link: Boolean,
 
-  /**
-   * 链接 target 属性，仅在 href 存在时有效
-   */
-  target?: string
+  // 自定义颜色
+  color: String,
+
+  // 是否为深色模式 (兼容 Element Plus API，虽本项目默认暗黑，保留此属性)
+  dark: Boolean,
+} as const
+
+export const buttonEmits = {
+  click: (evt: MouseEvent) => evt instanceof MouseEvent,
 }
+
+export type ButtonProps = ExtractPropTypes<typeof buttonProps>

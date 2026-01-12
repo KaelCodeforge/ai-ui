@@ -1,5 +1,7 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, Component } from 'vue'
 import type { ComponentSize } from '../../types'
+
+export type InputType = 'text' | 'textarea' | 'password' | 'number' | string
 
 export const inputProps = {
   /**
@@ -13,7 +15,7 @@ export const inputProps = {
    * 类型
    */
   type: {
-    type: String as PropType<'text' | 'password' | 'textarea' | string>,
+    type: String as PropType<InputType>,
     default: 'text',
   },
   /**
@@ -38,6 +40,13 @@ export const inputProps = {
     default: false,
   },
   /**
+   * 是否只读
+   */
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
+  /**
    * 是否可清空
    */
   clearable: {
@@ -52,11 +61,16 @@ export const inputProps = {
     default: false,
   },
   /**
-   * 是否只读
+   * 前缀图标
    */
-  readonly: {
-    type: Boolean,
-    default: false,
+  prefixIcon: {
+    type: [String, Object] as PropType<string | Component>,
+  },
+  /**
+   * 后缀图标
+   */
+  suffixIcon: {
+    type: [String, Object] as PropType<string | Component>,
   },
   /**
    * 是否自动聚焦
@@ -77,6 +91,12 @@ export const inputProps = {
   autocomplete: {
     type: String,
     default: 'off',
+  },
+  /**
+   * 原生 tabindex 属性
+   */
+  tabindex: {
+    type: [String, Number] as PropType<string | number>,
   },
 } as const
 

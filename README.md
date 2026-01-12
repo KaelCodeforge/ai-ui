@@ -43,7 +43,7 @@ app.mount('#app')
 ```vue
 <script setup lang="ts">
 // 从主入口引入组件
-import { AiButton, AiLoadingIcon } from '@axin666/ai-ui'
+import { AiButton, AiInput } from '@axin666/ai-ui'
 
 // 导入工具函数
 import { createBem } from '@axin666/ai-ui'
@@ -53,12 +53,8 @@ import { useEventListener } from '@axin666/ai-ui'
 </script>
 
 <template>
-  <AiButton type="primary">
-    <template #icon>
-      <AiLoadingIcon />
-    </template>
-    按钮
-  </AiButton>
+  <AiButton type="primary">按钮</AiButton>
+  <AiInput v-model="value" placeholder="请输入内容" />
 </template>
 ```
 
@@ -95,7 +91,7 @@ ai-ui/
 │   │   │   │   └── style.scss     # 样式
 │   │   │   ├── index.ts           # 组件出口
 │   │   │   └── __tests__/         # 单元测试
-│   │   ├── Icon/         # 图标组件
+│   │   ├── Input/       # 输入框组件
 │   │   ├── index.ts     # 组件库入口
 │   │   └── types.ts     # 公共类型
 │   ├── hooks/           # 通用 Hooks

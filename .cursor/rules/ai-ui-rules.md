@@ -530,13 +530,46 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   - 新图标需在 `packages/components/Icon/index.ts` 中导出。
   - 需在 `packages/components/index.ts` 的 `components` 数组中注册，以便全局使用。
 
-6. 文档规范（简要）
+6. 文档规范与同步要求
 
-6.1 每个组件在 `docs/components/` 下有一个对应的 Markdown 文档：
-  - 文件名按组件命名，如 `button.md`, `input.md`, `modal.md`；
-  - 内容结构：简介 → 基本用法 → 各种示例 → Props 表 → Events 表 → Slots 表。
+6.1 文档结构：
+  - 每个组件在 `docs/components/` 下有一个对应的 Markdown 文档：
+    - 文件名按组件命名，如 `button.md`, `input.md`, `modal.md`；
+    - 内容结构：简介 → 基本用法 → 各种示例 → Props 表 → Events 表 → Slots 表 → Methods 表（如有）。
+  - 示例代码统一放在 `docs/demos/组件名/` 目录下，使用 `.vue` 文件。
+  - 文档中使用 `:::preview` 语法引用 demo：
+    ```markdown
+    :::preview 示例标题
+    demo-preview=../demos/组件名/文件名.vue
+    :::
+    ```
 
-6.2 Props 表以 `props.ts` 为准，保持字段、类型、默认值同步。
+6.2 文档同步规则（重要）：
+  - **当组件代码发生变化时，必须同步更新文档**：
+    1. Props 变化：更新文档中的 Props 表格，确保与 `src/props.ts` 中的定义完全一致（包括新增、删除、类型变更、默认值变更）。
+    2. Events 变化：更新文档中的 Events 表格，确保与组件 `defineEmits` 中的事件定义一致。
+    3. Slots 变化：更新文档中的 Slots 表格，确保与组件模板中的插槽定义一致。
+    4. Methods 变化：如果组件暴露了方法（通过 `defineExpose`），更新 Methods 表格。
+    5. 功能变化：如果新增或删除了功能特性，需要：
+       - 更新相应的示例 demo 文件（`docs/demos/组件名/`）；
+       - 在文档中添加或删除对应的示例章节。
+  
+  - **文档更新检查清单**：
+    - [ ] Props 表格是否与 `src/props.ts` 完全一致？
+    - [ ] Events 表格是否与组件事件定义一致？
+    - [ ] Slots 表格是否完整？
+    - [ ] Methods 表格是否包含所有暴露的方法？
+    - [ ] 示例 demo 是否正常工作？
+    - [ ] 文档中的代码示例是否使用了最新的 API？
+
+6.3 Props 表规范：
+  - Props 表必须以 `src/props.ts` 为准，保持字段、类型、默认值同步。
+  - 表格格式：
+    | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+    | --- | --- | --- | --- | --- |
+  - 类型列应使用 TypeScript 类型表示，如 `string / number`、`boolean`、`'sm' \| 'md' \| 'lg'` 等。
+  - 可选值列：如果是枚举类型，列出所有可选值；如果是通用类型（如 `string`），使用 `—`。
+  - 默认值列：必须与 `props.ts` 中的 `default` 值一致，如果没有默认值使用 `—`。
 
 示例结构：
   ```md
@@ -572,12 +605,25 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 --------------------------------
 【AI 开发新组件时的行为要求补充】
 
-- 当我说“新增一个 AiXxx 组件”时，你需要自动：
+- 当我说"新增一个 AiXxx 组件"时，你需要自动：
   1. 在 `packages/components/Xxx/` 下创建完整目录和文件；
   2. 按本节规范设计 Props、事件、样式、测试、文档骨架；
   3. 更新 `packages/components/index.ts` 和 `packages/index.ts` 的导出；
   4. 如有需要，更新 `packages/theme/index.scss` 引入新的样式；
-  5. 确保通过 ESLint、Vitest、打包构建。
+  5. 创建文档文件 `docs/components/xxx.md` 和相应的 demo 文件 `docs/demos/xxx/`；
+  6. 确保通过 ESLint、Vitest、打包构建。
 
-- 所有命名、结构、API、文档，都要尽量“对齐现有组件的模式”，保持高度一致。
+- 当我说"更新/修改 AiXxx 组件"时，你需要：
+  1. 修改组件代码（Props、Events、Slots、Methods 等）；
+  2. **必须同步更新文档** `docs/components/xxx.md`：
+     - 更新 Props 表格（与 `src/props.ts` 保持一致）；
+     - 更新 Events 表格（与组件事件定义一致）；
+     - 更新 Slots 表格（如有变化）；
+     - 更新 Methods 表格（如有变化）；
+     - 更新或创建相应的 demo 示例（`docs/demos/xxx/`）；
+  3. 确保文档中的示例代码使用最新的 API。
+
+- 所有命名、结构、API、文档，都要尽量"对齐现有组件的模式"，保持高度一致。
+
+- **重要提醒**：组件代码变化时，文档必须同步更新，这是强制要求。
 ```

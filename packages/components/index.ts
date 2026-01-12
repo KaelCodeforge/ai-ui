@@ -18,22 +18,12 @@ export type { AiButtonProps } from './Button'
 export { default as AiInput } from './Input'
 export type { InputProps as AiInputProps } from './Input'
 
-export * from './Icon'
-
 // 导入组件用于全局注册
 import AiButton from './Button'
 import AiInput from './Input'
-import { AiLoadingIcon, AiCloseCircleIcon, AiEyeIcon, AiEyeInvisibleIcon } from './Icon'
 
 // 组件列表
-const components = [
-  AiButton,
-  AiInput,
-  AiLoadingIcon,
-  AiCloseCircleIcon,
-  AiEyeIcon,
-  AiEyeInvisibleIcon,
-]
+const components = [AiButton, AiInput]
 
 /**
  * 全局安装函数

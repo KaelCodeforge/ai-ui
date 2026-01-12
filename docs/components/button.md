@@ -4,76 +4,70 @@
 
 ## 基本使用
 
-::: demo 基础用法
-```vue
-<template>
-  <AiButton type="primary">主要按钮</AiButton>
-  <AiButton>默认按钮</AiButton>
-  <AiButton type="text">文字按钮</AiButton>
-</template>
-```
+:::preview 基础用法演示
+
+demo-preview=../demos/button/basic.vue
+
 :::
 
 ## 按钮尺寸
 
-::: demo 按钮尺寸
-```vue
-<template>
-  <AiButton size="sm" type="primary">小型按钮</AiButton>
-  <AiButton size="md" type="primary">中型按钮</AiButton>
-  <AiButton size="lg" type="primary">大型按钮</AiButton>
-</template>
-```
+:::preview 按钮尺寸
+
+demo-preview=../demos/button/sizes.vue
+
 :::
 
 ## 禁用与加载
 
-::: demo 禁用与加载
-```vue
-<template>
-  <AiButton type="primary" disabled>禁用按钮</AiButton>
-  <AiButton type="primary" loading>加载中</AiButton>
-</template>
-```
+:::preview 禁用与加载
+
+demo-preview=../demos/button/disabled-loading.vue
+
 :::
 
-## 幽灵/块级/圆形
+## 按钮形态
 
-::: demo 幽灵/块级/圆形
-```vue
-<template>
-  <div style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
-    <div style="display: flex; gap: 12px; background: #f5f5f5; padding: 12px; border-radius: 4px;">
-      <AiButton ghost type="primary">幽灵按钮</AiButton>
-      <AiButton round type="primary">圆角按钮</AiButton>
-      <AiButton circle type="primary">圆</AiButton>
-    </div>
-    <AiButton block type="primary">块级按钮</AiButton>
-  </div>
-</template>
-```
+按钮支持多种形态：朴素按钮（描边风格）、圆角按钮、圆形按钮（常用于图标按钮）和链接按钮。
+
+:::preview 按钮形态
+
+demo-preview=../demos/button/ghost-block-circle.vue
+
+:::
+
+## 图标按钮
+
+按钮支持通过 `icon` 属性添加图标，也可以配合 `@axin666/ai-ui-icons` 图标包使用：
+
+:::preview 图标按钮
+
+demo-preview=../demos/button/with-icon.vue
+
 :::
 
 ## Props
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 按钮类型 | `'primary' \| 'default' \| 'success' \| 'warning' \| 'danger' \| 'text'` | `default` |
-| size | 按钮尺寸 | `'sm' \| 'md' \| 'lg'` | `md` |
-| disabled | 是否禁用 | `boolean` | `false` |
-| loading | 是否加载中 | `boolean` | `false` |
-| ghost | 幽灵按钮（背景透明） | `boolean` | `false` |
-| block | 是否为块级元素 | `boolean` | `false` |
-| round | 是否为圆角按钮 | `boolean` | `false` |
-| circle | 是否为圆形按钮 | `boolean` | `false` |
+| type | 按钮类型 | `'' \| 'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'text'` | `''` |
+| size | 按钮尺寸 | `'' \| 'default' \| 'small' \| 'large'` | `''` |
 | nativeType | 原生 type 属性 | `'button' \| 'submit' \| 'reset'` | `button` |
-| icon | 左侧图标 | `string \| Component` | - |
-| iconRight | 右侧图标 | `string \| Component` | - |
-| href | 链接地址 | `string` | - |
-| target | 链接打开方式 | `string` | - |
+| plain | 朴素按钮（描边/幽灵风格） | `boolean` | `false` |
+| round | 是否圆角 | `boolean` | `false` |
+| circle | 是否圆形（常用于图标按钮） | `boolean` | `false` |
+| loading | 是否加载中 | `boolean` | `false` |
+| loadingIcon | 自定义加载图标 | `string \| Component` | - |
+| disabled | 是否禁用 | `boolean` | `false` |
+| icon | 图标 | `string \| Component` | - |
+| autofocus | 自动聚焦 | `boolean` | `false` |
+| link | 是否为链接/文字按钮 | `boolean` | `false` |
+| color | 自定义颜色 | `string` | - |
+| dark | 是否为深色模式 | `boolean` | `false` |
 
 ## Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | click | 点击事件 | `(event: MouseEvent)` |
+

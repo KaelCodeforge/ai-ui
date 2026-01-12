@@ -10,7 +10,6 @@
 // 引入组件样式（使用 @forward 转发样式，避免命名空间冲突）
 @forward '../components/Button/src/style.scss';
 @forward '../components/Input/src/style.scss';
-@forward '../components/Icon/src/style.scss';
 
 :root {
   // ============================================
@@ -73,7 +72,7 @@
   --ai-color-fill-default: #f9fafb;
   --ai-color-fill-hover: #f3f4f6;
   --ai-color-fill-active: #e5e7eb;
-  
+
   --ai-bg-page: #ffffff;
   --ai-bg-container: #ffffff;
   --ai-bg-elevated: #ffffff;

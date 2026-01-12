@@ -1,8 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { markRaw } from 'vue'
 import AiButton from '../src/AiButton.vue'
 
 describe('AiButton', () => {
+  const TestIcon = markRaw({
+    template: '<span class="test-icon">icon</span>',
+  })
+
   // 1. 渲染默认插槽文本
   it('应该正确渲染默认插槽内容', () => {
     const wrapper = mount(AiButton, {
@@ -37,32 +42,49 @@ describe('AiButton', () => {
     expect(wrapper.emitted('click')).toBeUndefined()
   })
 
-  // 5. 有 href 时渲染为 <a>
-  it('设置 href 属性时应该渲染为 <a> 标签', () => {
-    const wrapper = mount(AiButton, {
-      props: { href: 'https://example.com' },
-    })
-    expect(wrapper.element.tagName).toBe('A')
-    expect(wrapper.attributes('href')).toBe('https://example.com')
-  })
-
-  // 6. 渲染不同类型和尺寸
+  // 5. 渲染不同类型和尺寸（Element Plus：large/small）
   it('应该正确应用类型和尺寸类名', () => {
     const wrapper = mount(AiButton, {
-      props: { type: 'primary', size: 'lg' },
+      props: { type: 'primary', size: 'large' },
     })
     expect(wrapper.classes()).toContain('ai-button--primary')
-    expect(wrapper.classes()).toContain('ai-button--lg')
+    expect(wrapper.classes()).toContain('ai-button--large')
   })
 
-  // 7. 渲染图标
-  it('应该正确渲染图标插槽', () => {
+  // 6. plain / link class
+  it('应该正确应用 plain/link 状态类名', () => {
     const wrapper = mount(AiButton, {
-      slots: {
-        icon: '<span class="custom-icon">icon</span>',
+      props: {
+        plain: true,
+        link: true,
       },
     })
-    expect(wrapper.find('.custom-icon').exists()).toBe(true)
-    expect(wrapper.find('.ai-button__icon--left').exists()).toBe(true)
+    expect(wrapper.classes()).toContain('is-plain')
+    expect(wrapper.classes()).toContain('is-link')
+  })
+
+  // 7. icon 渲染
+  it('应该正确渲染 icon', () => {
+    const wrapper = mount(AiButton, {
+      props: {
+        icon: TestIcon,
+      },
+      slots: { default: '按钮' },
+    })
+    expect(wrapper.find('.test-icon').exists()).toBe(true)
+    expect(wrapper.find('.ai-button__icon').exists()).toBe(true)
+  })
+
+  // 8. loadingIcon 渲染
+  it('loading 为 true 时应该优先渲染 loadingIcon', () => {
+    const wrapper = mount(AiButton, {
+      props: {
+        loading: true,
+        loadingIcon: TestIcon,
+      },
+      slots: { default: '按钮' },
+    })
+    expect(wrapper.find('.test-icon').exists()).toBe(true)
+    expect(wrapper.classes()).toContain('is-loading')
   })
 })

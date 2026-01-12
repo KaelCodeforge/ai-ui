@@ -7,7 +7,7 @@
 
 import { ref, computed, useSlots, watch, nextTick } from 'vue'
 import { createBem } from '@ai-ui/utils'
-import { AiCloseCircleIcon, AiEyeIcon, AiEyeInvisibleIcon } from '@axin666/ai-ui/Icon'
+import { CloseCircle, Eye, EyeInvisible } from '@axin666/ai-ui-icons'
 import { inputProps, inputEmits } from './props'
 
 defineOptions({
@@ -64,6 +64,22 @@ const wrapperClasses = computed(() => {
   return [bem('wrapper'), isFocused.value ? 'is-focus' : '']
 })
 
+/** 是否显示清空按钮 */
+const showClear = computed(() => {
+  return (
+    props.clearable &&
+    !props.disabled &&
+    !props.readonly &&
+    nativeInputValue.value !== '' &&
+    (isFocused.value || true) // 简化：始终显示（或可根据 hover 状态）
+  )
+})
+
+/** 是否显示密码切换 */
+const showPwdVisible = computed(() => {
+  return props.showPassword && props.type === 'password' && !props.disabled
+})
+
 /** 处理输入事件 */
 const handleInput = (event: Event) => {
   const { value } = event.target as HTMLInputElement
@@ -75,6 +91,13 @@ const handleInput = (event: Event) => {
 const handleChange = (event: Event) => {
   const { value } = event.target as HTMLInputElement
   emit('change', value)
+}
+
+/** 处理包装器点击 */
+const handleWrapperClick = () => {
+  if (!props.disabled && !props.readonly) {
+    inputRef.value?.focus()
+  }
 }
 
 /** 处理聚焦 */
@@ -135,10 +158,12 @@ watch(
       <slot name="prepend" />
     </div>
 
-    <div :class="wrapperClasses">
+    <div :class="wrapperClasses" @click="handleWrapperClick">
       <!-- 前缀图标 (Prefix) -->
-      <span v-if="slots.prefix" :class="bem('prefix')">
-        <slot name="prefix" />
+      <span v-if="slots.prefix || prefixIcon" :class="bem('prefix')">
+        <slot name="prefix">
+          <component :is="prefixIcon" v-if="prefixIcon" />
+        </slot>
       </span>
 
       <input
@@ -152,6 +177,7 @@ watch(
         :form="form"
         :autofocus="autofocus"
         :autocomplete="autocomplete"
+        :tabindex="tabindex"
         @input="handleInput"
         @change="handleChange"
         @focus="handleFocus"
@@ -159,28 +185,22 @@ watch(
       />
 
       <!-- 后缀图标 (Suffix) -->
-      <span v-if="slots.suffix || clearable || showPassword" :class="bem('suffix')">
-        <slot name="suffix" />
-
+      <span v-if="slots.suffix || suffixIcon || showClear || showPwdVisible" :class="bem('suffix')">
         <!-- 清空按钮 -->
-        <span
-          v-if="clearable && nativeInputValue && !disabled && !readonly"
-          :class="bem('clear')"
-          @mousedown.prevent
-          @click="handleClear"
-        >
-          <AiCloseCircleIcon />
+        <span v-if="showClear" :class="bem('clear')" @mousedown.prevent @click.stop="handleClear">
+          <CloseCircle />
         </span>
 
         <!-- 密码切换 -->
-        <span
-          v-if="showPassword && type === 'password' && !disabled"
-          :class="bem('password')"
-          @click="togglePasswordVisible"
-        >
-          <AiEyeIcon v-if="passwordVisible" />
-          <AiEyeInvisibleIcon v-else />
+        <span v-if="showPwdVisible" :class="bem('password')" @click.stop="togglePasswordVisible">
+          <Eye v-if="passwordVisible" />
+          <EyeInvisible v-else />
         </span>
+
+        <!-- 普通后缀 -->
+        <slot name="suffix">
+          <component :is="suffixIcon" v-if="suffixIcon" />
+        </slot>
       </span>
     </div>
 

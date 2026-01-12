@@ -1,28 +1,98 @@
+/* 1. 覆盖 VitePress 品牌色 (番茄红 #ff4d4f) */
 :root {
-  /* Brand (Tomato Red) */
   --vp-c-brand-1: #ff4d4f;
   --vp-c-brand-2: #ff7875;
   --vp-c-brand-3: #d9363e;
   --vp-c-brand-soft: rgba(255, 77, 79, 0.16);
-
-  /* Home hero */
+  
+  /* 首页 Hero 渐变文字 */
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ff4d4f 30%, #ff7875);
 }
 
+/* Dark mode 同步品牌色（保持 Element Plus 风格一致） */
 .dark {
-  /* Brand (Tomato Red) */
   --vp-c-brand-1: #ff4d4f;
   --vp-c-brand-2: #ff7875;
   --vp-c-brand-3: #d9363e;
   --vp-c-brand-soft: rgba(255, 77, 79, 0.16);
-
-  /* Home hero */
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #ff4d4f 30%, #ff7875);
 }
 
-/* Navbar title (next to logo) */
+/* 2. 内容区最大宽度调整 (让文档看起来更宽敞，像 Element) */
+.VPDoc .container {
+  max-width: 1280px !important; 
+}
+.VPDoc .content-container {
+  max-width: 100% !important;
+}
+
+/* 3. 美化表格 (Element 风格) */
+.vp-doc table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px var(--vp-c-divider);
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.vp-doc table tr {
+  background-color: transparent !important;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc table th,
+.vp-doc table td {
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.vp-doc table th {
+  background-color: var(--vp-c-bg-soft);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+}
+
+/* API 表格第一列 (参数名) 高亮 */
+.vp-doc table td:nth-child(1) {
+  font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-brand-1);
+}
+
+/* 隐藏图标列表的代码块和工具栏，只显示预览 */
+.icon-list-only :deep(.vitepress-demo-preview__element-plus__code) {
+  display: none !important;
+}
+
+.icon-list-only :deep(.vitepress-demo-preview__element-plus__container) {
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 隐藏预览区域的虚线边框和工具栏 */
+.icon-list-only :deep(.vitepress-demo-preview__element-plus__preview) {
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* 隐藏工具栏（复制、代码图标等） */
+.icon-list-only :deep(.vitepress-demo-preview__element-plus__actions) {
+  display: none !important;
+}
+
+/* 4. 修复 demo-preview 插件在暗黑模式下的一些样式问题 */
+.dark .vitepress-demo-preview__element-plus__container {
+  background-color: var(--vp-c-bg-alt);
+  border-color: var(--vp-c-divider);
+}
+
+/* Navbar 标题（Logo 旁边）使用番茄红 */
 .VPNavBarTitle .title {
   color: var(--vp-c-brand-1);
   font-weight: 700;
