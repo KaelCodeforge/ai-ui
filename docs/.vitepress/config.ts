@@ -43,6 +43,7 @@ export default defineConfig({
         '@': path.resolve(__dirname, '../../src'),
         '@packages': path.resolve(__dirname, '../../packages'),
         '@ai-ui': path.resolve(__dirname, '../../packages'),
+        '@axin666/ai-ui': path.resolve(__dirname, '../../src/index.ts'),
         '@axin666/ai-ui-icons': path.resolve(__dirname, '../../packages/icons/src/index.ts')
       }
     }
