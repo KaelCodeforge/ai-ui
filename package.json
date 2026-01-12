@@ -43,7 +43,7 @@
     "release": "pnpm lint && pnpm test && pnpm build",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release:publish": "pnpm build && changeset publish"
+    "release:publish": "pnpm build && changeset publish --no-git-tag"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
